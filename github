@@ -1,0 +1,37 @@
+#!/bin/bash
+PUBLIC_HTML=~/public_html
+
+init(){
+    sudo apt-get install git
+    git config --global user.name "Neo Chan"
+    git config --global user.email bg7nyt@gmail.com
+    git init
+    git remote add origin git@github.com:netkiller/netkiller.github.com.git
+}
+
+clone(){
+    git clone git@github.com:netkiller/netkiller.github.com.git
+}
+sitemap(){
+	gunzip sitemaps.xml.gz
+
+	:%s/netkiller.sourceforge.net/netkiller.github.com/g
+
+	gzip sitemaps.xml
+}
+
+./sitemaps | gzip > ${PUBLIC_HTML}/sitemaps.xml.gz
+
+cd ${PUBLIC_HTML}
+
+git add *
+
+if [ -z $1 ]; then
+	git commit -a 
+else
+	git commit -a -m "$1"
+fi
+
+git push origin master
+#git push origin gh-pages
+cd -

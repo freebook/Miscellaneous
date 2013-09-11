@@ -1,0 +1,24 @@
+#!/bin/bash
+DOMAIN="http://netkiller.github.com"
+PUBLIC_HTML=~/public_html
+if [ ! -z $1 ]; then
+	DOMAIN=$1
+fi
+lastmod=`date "+%Y-%m-%d"`
+
+echo '<?xml version="1.0" encoding="UTF-8"?>'
+echo '<?xml-stylesheet type="text/xsl" href="gss.xsl"?>'
+echo '<urlset xmlns="http://www.google.com/schemas/sitemap/0.84" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google.com/schemas/sitemap/0.84/sitemap.xsd">'
+#echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+
+for htmlfile in $(find $PUBLIC_HTML/ -type f -name *.html)
+do
+	url=`echo $htmlfile | sed -e "s:$PUBLIC_HTML/::"`
+	echo '   <url>'
+	echo '      <loc>'${DOMAIN}'/'${url}'</loc>'
+	echo '      <lastmod>'${lastmod}'</lastmod>'
+	echo '      <changefreq>daily</changefreq>'
+	echo '      <priority>0.5</priority>'
+	echo '   </url>'
+done
+echo "</urlset>"

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+PUBLIC_HTML=~/workspace/
+
+# sftp://netkiller,netkiller@web.sourceforge.net:/home/groups/n/ne/netkiller/htdocs
+# rsync -auzv --delete * netkiller@frs.sourceforge.net:/home/user-web/n/ne/netkiller/htdocs/
+#RSYNC="rsync --archive --update --compress --delete --progress --stats --exclude=.svn"
+#RSYNC="rsync --archive --update --compress --delete --stats --exclude=.svn"
+
+RSYNC="rsync --archive --compress --delete --stats -vP --exclude=.svn"
+REMOTE="netkiller,netkiller@web.sourceforge.net:/home/groups/n/ne/netkiller/htdocs"
+LOCAL="${PUBLIC_HTML}/netkiller.sourceforge.net"
+
+if [ -z $1 ]; then
+	./sitemaps http://netkiller.sourceforge.net | gzip > ${LOCAL}/sitemaps.xml.gz
+    eval "$RSYNC $LOCAL/* $REMOTE"
+else
+    $RSYNC $LOCAL/$1 $REMOTE
+fi
+
+#./sitemaps http://netkiller.sourceforge.net > /tmp/sitemap.xml
+#$RSYNC /tmp/sitemaps.xml.gz /tmp/sitemap.xml $REMOTE
+#$RSYNC /tmp/sitemaps.xml.gz $REMOTE/
+
