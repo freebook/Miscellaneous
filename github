@@ -20,7 +20,7 @@ sitemap(){
 	gzip sitemaps.xml
 }
 
-./sitemaps | gzip > ${PUBLIC_HTML}/sitemaps.xml.gz
+./sitemaps http://netkiller.github.io | gzip > ${PUBLIC_HTML}/sitemaps.xml.gz
 
 cd ${PUBLIC_HTML}
 
