@@ -21,4 +21,16 @@ do
 	echo '      <priority>0.5</priority>'
 	echo '   </url>'
 done
+
+for htmlfile in $(find $PUBLIC_HTML/ -type f -name *.pdf)
+do
+	url=`echo $htmlfile | sed -e "s:$PUBLIC_HTML/::"`
+	echo '   <url>'
+	echo '      <loc>'${DOMAIN}'/'${url}'</loc>'
+	echo '      <lastmod>'${lastmod}'</lastmod>'
+	echo '      <changefreq>daily</changefreq>'
+	echo '      <priority>0.5</priority>'
+	echo '   </url>'
+done
+
 echo "</urlset>"
