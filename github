@@ -27,9 +27,9 @@ cd ${PUBLIC_HTML}
 git add *
 
 if [ -z $1 ]; then
-	git commit -a 
+	git commit --all
 else
-	git commit -a -m "$1"
+	git commit --all -m "$1"
 fi
 
 git push origin master

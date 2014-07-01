@@ -1,0 +1,197 @@
+#!/bin/bash
+export DSSSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/epub/docbook.xsl
+export XSLTPROC="xsltproc --stringparam epub.stylesheet docbook.css --stringparam use.id.as.filename 1 ${DSSSL}"
+export PUBLIC_HTML="/home/neo/workspace/netkiller.github.com"
+
+WORKSPACE=/home/neo/workspace
+
+
+generator(){
+	#echo $@
+	PROJECT=$(echo $1|sed "s/\//-/")
+        DOCBOOK=$WORKSPACE/$1
+	EPUB=$PUBLIC_HTML/$2
+	echo $PROJECT
+
+	TMPDIR=$(mktemp -d --suffix=.tmp -p /tmp epub.$2.XXXXXX)
+	echo $TMPDIR
+	cd $TMPDIR
+	
+	${XSLTPROC} $DOCBOOK/book.xml
+
+#	sed "s/{latest}/`date -u`/g" index.epub >index.epub.sed; mv index.epub.sed index.epub
+#	if [ ! -d ${PUBLIC_HTML}/${epub} ]; then
+#		mkdir ${PUBLIC_HTML}/${epub}
+#	fi
+	cp $WORKSPACE/common/docbook.css OEBPS
+	if [ -d $DOCBOOK/images ]; then
+		#cp -r $DOCBOOK/${xml}/images OEBPS
+		rsync -a --exclude=.svn $DOCBOOK/images .
+	fi
+	find OEBPS -type d -iname ".svn" -exec rm -rf {} \; 
+
+	echo "application/epub+zip" > mimetype
+	zip -0Xq  ${PROJECT}.epub mimetype
+	zip -Xr9D ${PROJECT}.epub *
+
+	cp *.epub ${PUBLIC_HTML}/download/epub/
+	cp ${PROJECT}.epub ${EPUB}/ibook.epub
+
+	cd -
+	
+}
+
+
+english(){
+	xml=English
+	html=english/notes
+	generator
+}
+
+
+website(){
+#HTDOCS=$PUBLIC_HTML
+#WEBSITE=/usr/share/xml/docbook/stylesheet/nwalsh/website
+#XML_CATALOG_FILES=/usr/share/xml/docbook/stylesheet/nwalsh/catalog.xml \
+#xsltproc --output Docbook/Website/autolayout.xml ${WEBSITE}/autolayout.xsl Docbook/Website/layout.xml
+##xsltproc --stringparam output-root $HTDOCS $WEBSITE/chunk-tabular.xsl autolayout.xml
+#xsltproc --stringparam output-root $HTDOCS Docbook/Website/template.xsl Docbook/Website/autolayout.xml
+##       --stringparam  collect.xref.targets yes
+#cp -r Docbook/Website/graphics $HTDOCS
+#rm -rf $HTDOCS/graphics/.svn
+#cp Docbook/Website/stylesheet.css $HTDOCS
+exit
+}
+
+case "$1" in
+	architect)
+		generator Architect architect
+		;;
+	freebsd)
+		generator FreeBSD freebsd
+		;;
+	centos)
+		generator CentOS centos
+		;;
+	linux)
+		generator Linux linux
+		;;
+	monitoring)
+        	generator Linux/Monitoring monitoring
+		;;
+	www)
+		generator Linux/Web www
+		;;
+	debian)
+		generator Linux/System debian
+		;;
+	storage)
+		generator Linux/Storage storage
+		;;
+	shell)
+		generator Linux/Shell shell
+		;;
+	security)
+        	generator Linux/Security security
+		;;
+	developer)
+		generator Developer developer
+		;;
+	testing)
+		generator Testing testing
+		;;
+	cryptography)
+		generator Cryptography cryptography
+		;;
+
+	database)
+        	generator Database database
+		;;
+	mysql)
+	        generator MySQL mysql
+		;;
+	nosql)
+        	generator NoSQL nosql
+		;;
+        postgresql)
+	        generator PostgreSQL postgresql 
+                ;;
+#	management)
+#		management
+#		;;
+	openldap)
+		generator OpenLDAP openldap
+		;;
+	cisco)
+		generator Cisco cisco
+		;;
+	docbook)
+		generator Docbook docbook
+		;;
+
+	version)
+		generator Version version
+		;;
+	mail)
+		generator Linux/Mail mail
+		;;
+	network)
+		generator Network network
+		;;
+	multimedia)
+		generator Multimedia multimedia
+		;;
+	english)
+		english
+		;;
+
+	website)
+		website
+		;;
+	solaris)
+		solaris
+		;;
+        sport)
+                sport
+                ;;
+        oss)
+                oss
+                ;;
+	all)	
+		$0 freebsd &
+                $0 linux &
+		$0 www &
+		$0 monitoring &
+		$0 storage &
+		$0 centos &
+		$0 debian &
+		$0 shell &
+		$0 architect &
+		$0 developer &
+		$0 security & 
+		$0 cryptography &
+		$0 database &
+		$0 mysql &
+		$0 docbook &
+		$0 openldap & 
+		$0 cisco & 
+		$0 version &
+		$0 network &
+		$0 multimedia &
+		$0 mail &
+		$0 solaris &
+		$0 testing &
+		$0 nosql &
+                $0 postgresql &
+                $0 sport &
+                $0 oss &
+		;;
+	*)
+                echo $"Usage: $0 {freebsd | linux | monitoring | www | centos | debian | storage | developer | website | security | docbook | architect | cisco | version | mail | intranet | multimedia | solaris | testing | all}"
+                echo $"        $0 {database | mysql | nosql}"
+                echo $"        $0 {cryptography}"
+        	RETVAL=1
+esac
+
+
+exit $RETVAL
