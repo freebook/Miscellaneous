@@ -1,7 +1,11 @@
 #!/bin/bash
 
 PUBLIC_HTML=~/workspace/
+<<<<<<< Updated upstream
 #./gb2big.sh
+=======
+./gb2big.sh
+>>>>>>> Stashed changes
 # sftp://netkiller,netkiller@web.sourceforge.net:/home/groups/n/ne/netkiller/htdocs
 # rsync -auzv --delete * netkiller@frs.sourceforge.net:/home/user-web/n/ne/netkiller/htdocs/
 #RSYNC="rsync --archive --update --compress --delete --progress --stats --exclude=.svn"
