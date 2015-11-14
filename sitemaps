@@ -1,5 +1,5 @@
 #!/bin/bash
-DOMAIN="http://netkiller.github.com"
+DOMAIN="http://www.netkiller.cn"
 PUBLIC_HTML=~/public_html
 if [ ! -z $1 ]; then
 	DOMAIN=$1
