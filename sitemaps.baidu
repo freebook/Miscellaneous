@@ -1,0 +1,35 @@
+#!/bin/bash
+DOMAIN="http://www.netkiller.cn"
+PUBLIC_HTML=~/public_html
+if [ ! -z $1 ]; then
+	DOMAIN=$1
+fi
+lastmod=`date "+%Y-%m-%d"`
+
+echo '<?xml version="1.0" encoding="UTF-8"?>'
+
+echo '<urlset>'
+
+for htmlfile in $(find $PUBLIC_HTML/ -type f -name *.html)
+do
+	url=`echo $htmlfile | sed -e "s:$PUBLIC_HTML/::"`
+	echo '   <url>'
+	echo '      <loc>'${DOMAIN}'/'${url}'</loc>'
+	echo '      <lastmod>'${lastmod}'</lastmod>'
+	echo '      <changefreq>daily</changefreq>'
+	echo '      <priority>1.0</priority>'
+	echo '   </url>'
+done
+
+for htmlfile in $(find $PUBLIC_HTML/ -type f -name *.pdf)
+do
+	url=`echo $htmlfile | sed -e "s:$PUBLIC_HTML/::"`
+	echo '   <url>'
+	echo '      <loc>'${DOMAIN}'/'${url}'</loc>'
+	echo '      <lastmod>'${lastmod}'</lastmod>'
+	echo '      <changefreq>daily</changefreq>'
+	echo '      <priority>1.0</priority>'
+	echo '   </url>'
+done
+
+echo "</urlset>"

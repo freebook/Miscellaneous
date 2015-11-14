@@ -1,0 +1,11 @@
+#!/bin/bash
+DOMAIN="http://www.netkiller.cn"
+PUBLIC_HTML=~/public_html
+if [ ! -z $1 ]; then
+	DOMAIN=$1
+fi
+
+find $PUBLIC_HTML/ -type f -name *.html | eval "sed 's|$PUBLIC_HTML|${DOMAIN}|g'"
+find $PUBLIC_HTML/ -type f -name *.epub | eval "sed 's|$PUBLIC_HTML|${DOMAIN}|g'"
+find $PUBLIC_HTML/ -type f -name *.pdf | eval "sed 's|$PUBLIC_HTML|${DOMAIN}|g'"
+
