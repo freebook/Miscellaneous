@@ -21,8 +21,8 @@ sitemap(){
 }
 
 ./sitemaps http://www.netkiller.cn | gzip > ${PUBLIC_HTML}/sitemaps.xml.gz
-./sitemaps.baidu http://www.netkiller.cn  > ${PUBLIC_HTML}/sitemaps.xml
-./sitemaps.baidu.txt > ${PUBLIC_HTML}/sitemaps.txt
+./sitemap.xml http://www.netkiller.cn  > ${PUBLIC_HTML}/sitemap.xml
+./sitemap.txt > ${PUBLIC_HTML}/sitemap.txt
 
 cd ${PUBLIC_HTML}
 
