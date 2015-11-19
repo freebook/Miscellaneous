@@ -1,6 +1,6 @@
 Summary: Netkiller‘s eBook
 Name: netkiller
-Version: 1.0
+Version: 1.1.0
 Release: centos
 License: CC
 # group you want your package in, mostly for GUI package browsers
@@ -8,7 +8,7 @@ License: CC
 # http://www.rpmfind.net/linux/RPM/Groups.html
 Group: Books/Computer books
 # your name for example
-Packager: Neo Chen <openunix@163.com>
+Packager: Neo Chen <netkiller@msn.com>
 #
 #Source: http://netkiller.github.com/package/%{name}-%{version}.tar.gz
 Source: %{name}-%{version}-%{release}.tar.gz
@@ -20,6 +20,7 @@ Source: %{name}-%{version}-%{release}.tar.gz
 # list all packages that conflict with this one:
 #BuildRoot: %{_tmppath}/%{name}-%{version}-build
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
+
 
 ####
 # full length description
@@ -48,7 +49,7 @@ http://netkiller.github.com
 # any other commands here are executed as standard sh commands
 %prep
 #if [ ! -f ../SOURCES/%{name}-%{version}-%{release}.tar.gz ]; then
-rsync -auzv --exclude=.git --exclude=.svn /home/neo/workspace/public_html/* %{name}-%{version}-%{release}
+rsync -auzv --exclude=.git --exclude=.svn /home/neo/public_html/%{book} %{name}-%{version}-%{release}
 tar -zcvf ../SOURCES/%{name}-%{version}-%{release}.tar.gz %{name}-%{version}-%{release}
 #fi
 
