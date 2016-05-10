@@ -1,5 +1,5 @@
 #!/bin/bash
-SOURCE_DIR="/home/neo/workspace/netkiller.github.com"
+SOURCE_DIR="/home/neo/workspace/netkiller.github.io"
 TARGET_DIR="/home/neo/workspace/netkiller.sourceforge.net"
 
 mkdir -p $TARGET_DIR

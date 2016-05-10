@@ -37,3 +37,5 @@ fi
 git push origin master
 #git push origin gh-pages
 cd -
+
+rsync -azv ../netkiller.github.io/* www@www.netkiller.cn:/www/test
