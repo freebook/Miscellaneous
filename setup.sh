@@ -2,7 +2,8 @@
 ln -s /opt/workspace/netkiller.github.com /home/neo/public_html
 ln -s /opt/workspace /home/neo/workspace
 
-sudo apt-get install -y make cconv xsltproc docbook-xsl docbook-website
+sudo apt-get install -y make cconv xsltproc docbook5-xml docbook-xsl docbook-website
+# docbook-xsl-saxon
 
 sudo apt-get install -y rpm
 echo "%_topdir ~/rpmbuild" >> ~/.rpmmacros

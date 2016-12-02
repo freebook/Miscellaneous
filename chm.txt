@@ -1,0 +1,11 @@
+# Linux
+cd Linux
+make htmlhelp
+
+# Windows
+
+set PATH=C:\Program Files (x86)\HTML Help Workshop;%PATH%
+
+cd O:\htmlhelp\linux 
+
+O:\htmlhelp\linux>hhc chm\htmlhelp.hhp 

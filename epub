@@ -1,7 +1,7 @@
 #!/bin/bash
 export DSSSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/epub/docbook.xsl
 export XSLTPROC="xsltproc --stringparam epub.stylesheet docbook.css --stringparam use.id.as.filename 1 ${DSSSL}"
-export PUBLIC_HTML="/home/neo/workspace/netkiller.github.com"
+export PUBLIC_HTML="/home/neo/workspace/netkiller.github.io"
 
 WORKSPACE=/home/neo/workspace
 
@@ -154,8 +154,9 @@ case "$1" in
         sport)
                 sport
                 ;;
-        oss)
-                oss
+        java)
+                java
+		generator Java java
                 ;;
 	all)	
 		$0 freebsd &
