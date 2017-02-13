@@ -1,5 +1,6 @@
 #!/bin/bash
-export DSSSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/epub/docbook.xsl
+#export DSSSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/epub/docbook.xsl
+export DSSSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/epub3/chunk.xsl
 export XSLTPROC="xsltproc --stringparam epub.stylesheet docbook.css --stringparam use.id.as.filename 1 ${DSSSL}"
 export PUBLIC_HTML="/home/neo/workspace/netkiller.github.io"
 
@@ -34,8 +35,8 @@ generator(){
 	zip -0Xq  ${PROJECT}.epub mimetype
 	zip -Xr9D ${PROJECT}.epub *
 
-	cp *.epub ${PUBLIC_HTML}/download/epub/
-	cp ${PROJECT}.epub ${EPUB}/ibook.epub
+	cp *.epub ${PUBLIC_HTML}/download/2017/epub/
+	#cp ${PROJECT}.epub ${EPUB}/ibook.epub
 
 	cd -
 	
