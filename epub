@@ -28,6 +28,7 @@ generator(){
 	if [ -d $DOCBOOK/images ]; then
 		#cp -r $DOCBOOK/${xml}/images OEBPS
 		rsync -a --exclude=.svn $DOCBOOK/images .
+		rsync -a --exclude=.svn $WORKSPACE/Website/images/* images/
 	fi
 	find OEBPS -type d -iname ".svn" -exec rm -rf {} \; 
 
