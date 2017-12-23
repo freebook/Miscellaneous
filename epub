@@ -13,6 +13,7 @@ generator(){
         DOCBOOK=$WORKSPACE/$1
 	EPUB=$PUBLIC_HTML/$2
 	echo $PROJECT
+	echo $EPUB
 
 	TMPDIR=$(mktemp -d --suffix=.tmp -p /tmp epub.$2.XXXXXX)
 	echo $TMPDIR
@@ -72,9 +73,6 @@ case "$1" in
 	freebsd)
 		generator FreeBSD freebsd
 		;;
-	centos)
-		generator CentOS centos
-		;;
 	linux)
 		generator Linux linux
 		;;
@@ -100,39 +98,42 @@ case "$1" in
 		generator Developer developer
 		;;
 	testing)
-		generator Testing testing
+		generator Developer/Testing testing
 		;;
 	cryptography)
-		generator Cryptography cryptography
+		generator Linux/Cryptography cryptography
 		;;
 
 	database)
         	generator Database database
 		;;
 	mysql)
-	        generator MySQL mysql
+	        generator Database/MySQL mysql
 		;;
 	nosql)
-        	generator NoSQL nosql
+        	generator Database/NoSQL nosql
 		;;
         postgresql)
-	        generator PostgreSQL postgresql 
+	        generator Database/PostgreSQL postgresql 
                 ;;
-#	management)
-#		management
-#		;;
+	management)
+		generator Management management
+		;;
 	openldap)
-		generator OpenLDAP openldap
+		generator Linux/OpenLDAP openldap
 		;;
 	cisco)
-		generator Cisco cisco
+		generator Network/Cisco cisco
+		;;
+	h3c)
+		generator Network/H3C h3c
 		;;
 	docbook)
 		generator Docbook docbook
 		;;
 
 	version)
-		generator Version version
+		generator Linux/Project version
 		;;
 	mail)
 		generator Linux/Mail mail
@@ -141,7 +142,7 @@ case "$1" in
 		generator Network network
 		;;
 	multimedia)
-		generator Multimedia multimedia
+		generator Linux/Multimedia multimedia
 		;;
 	english)
 		english
@@ -160,6 +161,9 @@ case "$1" in
                 java
 		generator Java java
                 ;;
+	spring)
+		generator Java/Spring spring
+		;;
 	all)	
 		$0 freebsd &
                 $0 linux &

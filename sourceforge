@@ -2,7 +2,7 @@
 
 PUBLIC_HTML=~/workspace/
 
-#./gb2big.sh
+./gb2big.sh
 
 # sftp://netkiller,netkiller@web.sourceforge.net:/home/groups/n/ne/netkiller/htdocs
 # rsync -auzv --delete * netkiller@frs.sourceforge.net:/home/user-web/n/ne/netkiller/htdocs/
