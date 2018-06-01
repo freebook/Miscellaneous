@@ -37,7 +37,7 @@ generator(){
 	zip -0Xq  ${PROJECT}.epub mimetype
 	zip -Xr9D ${PROJECT}.epub *
 
-	cp *.epub ${PUBLIC_HTML}/download/2017/epub/
+	cp *.epub ${PUBLIC_HTML}/download/2018/epub/
 	#cp ${PROJECT}.epub ${EPUB}/ibook.epub
 
 	cd -
@@ -163,6 +163,9 @@ case "$1" in
                 ;;
 	spring)
 		generator Java/Spring spring
+		;;
+	blockchain)
+		generator Blockchain blockchain
 		;;
 	all)	
 		$0 freebsd &
