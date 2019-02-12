@@ -4,7 +4,7 @@ PUBLIC_HTML=~/public_html
 init(){
     sudo apt-get install git
     git config --global user.name "Neo Chan"
-    git config --global user.email bg7nyt@gmail.com
+    git config --global user.email netkiller@msn.com
     git init
     git remote add origin git@github.com:netkiller/netkiller.github.com.git
 }

@@ -9,7 +9,7 @@ WORKSPACE=/home/neo/workspace
 
 generator(){
 	#echo $@
-	PROJECT=$(echo $1|sed "s/\//-/")
+	PROJECT="Netkiller-"$(echo $1|sed "s/\//-/")
         DOCBOOK=$WORKSPACE/$1
 	EPUB=$PUBLIC_HTML/$2
 	echo $PROJECT
@@ -37,7 +37,7 @@ generator(){
 	zip -0Xq  ${PROJECT}.epub mimetype
 	zip -Xr9D ${PROJECT}.epub *
 
-	cp *.epub ${PUBLIC_HTML}/download/2018/epub/
+	cp *.epub ${PUBLIC_HTML}/download/2019/epub/
 	#cp ${PROJECT}.epub ${EPUB}/ibook.epub
 
 	cd -
@@ -82,8 +82,8 @@ case "$1" in
 	www)
 		generator Linux/Web www
 		;;
-	debian)
-		generator Linux/System debian
+	project)
+		generator Linux/Project project
 		;;
 	storage)
 		generator Linux/Storage storage
@@ -151,9 +151,6 @@ case "$1" in
 	website)
 		website
 		;;
-	solaris)
-		solaris
-		;;
         sport)
                 sport
                 ;;
@@ -166,6 +163,12 @@ case "$1" in
 		;;
 	blockchain)
 		generator Blockchain blockchain
+		;;
+	radio)
+		generator Radio radio
+		;;
+	android)
+		generator Java/Android android
 		;;
 	all)	
 		$0 freebsd &
@@ -193,8 +196,6 @@ case "$1" in
 		$0 testing &
 		$0 nosql &
                 $0 postgresql &
-                $0 sport &
-                $0 oss &
 		;;
 	*)
                 echo $"Usage: $0 {freebsd | linux | monitoring | www | centos | debian | storage | developer | website | security | docbook | architect | cisco | version | mail | intranet | multimedia | solaris | testing | all}"
