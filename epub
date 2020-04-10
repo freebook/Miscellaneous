@@ -11,9 +11,10 @@ generator(){
 	#echo $@
 	PROJECT="Netkiller-"$(echo $1|sed "s/\//-/")
         DOCBOOK=$WORKSPACE/$1
-	EPUB=$PUBLIC_HTML/$2
+	EPUB=$PUBLIC_HTML/download/2020/epub/
 	echo $PROJECT
 	echo $EPUB
+	mkdir -p ${EPUB}
 
 	TMPDIR=$(mktemp -d --suffix=.tmp -p /tmp epub.$2.XXXXXX)
 	echo $TMPDIR
@@ -28,8 +29,8 @@ generator(){
 	cp $WORKSPACE/common/docbook.css OEBPS
 	if [ -d $DOCBOOK/images ]; then
 		#cp -r $DOCBOOK/${xml}/images OEBPS
-		rsync -a --exclude=.svn $DOCBOOK/images .
-		rsync -a --exclude=.svn $WORKSPACE/Website/images/* images/
+		rsync -a --exclude=.svn $DOCBOOK/images OEBPS/
+		#rsync -a --exclude=.svn $WORKSPACE/Website/images/* images/
 	fi
 	find OEBPS -type d -iname ".svn" -exec rm -rf {} \; 
 
@@ -37,7 +38,7 @@ generator(){
 	zip -0Xq  ${PROJECT}.epub mimetype
 	zip -Xr9D ${PROJECT}.epub *
 
-	cp *.epub ${PUBLIC_HTML}/download/2019/epub/
+	cp *.epub ${EPUB}
 	#cp ${PROJECT}.epub ${EPUB}/ibook.epub
 
 	cd -
