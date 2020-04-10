@@ -3,8 +3,8 @@
 #%define version 1.0.1
 Summary: Netkiller %{book} Cookbook 
 Name: netkiller-%{book}
-Version: 2.0.0
-Release: 2017
+Version: 3.0.0
+Release: 2019
 License: CC
 # group you want your package in, mostly for GUI package browsers
 # some example groups used by vendors:
@@ -27,6 +27,7 @@ URL: http://netkiller.github.io
 # full length description
 %description
 
+http://www.netkiller.cn
 http://netkiller.github.io
 http://netkiller.sourceforge.net
 
