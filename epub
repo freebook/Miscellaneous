@@ -1,46 +1,45 @@
 #!/bin/bash
 #export DSSSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/epub/docbook.xsl
 export DSSSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/epub3/chunk.xsl
-export XSLTPROC="xsltproc --stringparam epub.stylesheet docbook.css --stringparam use.id.as.filename 1 ${DSSSL}"
+#export DSSSL=../docbook-xsl/epub3.xsl
+export XSLTPROC="xsltproc --stringparam toc.section.depth 3 --stringparam section.autolabel 1  --stringparam use.id.as.filename 1 ${DSSSL}"
 export PUBLIC_HTML="/home/neo/workspace/netkiller.github.io"
 
 WORKSPACE=/home/neo/workspace
+EPUB=$PUBLIC_HTML/download/2020/epub/
 
 
 generator(){
 	#echo $@
 	PROJECT="Netkiller-"$(echo $1|sed "s/\//-/")
         DOCBOOK=$WORKSPACE/$1
-	EPUB=$PUBLIC_HTML/download/2020/epub/
 	echo $PROJECT
 	echo $EPUB
 	mkdir -p ${EPUB}
 
-	TMPDIR=$(mktemp -d --suffix=.tmp -p /tmp epub.$2.XXXXXX)
+	TMPDIR=$(mktemp -d --suffix=.epub -p /tmp $2.XXXXXX)
 	echo $TMPDIR
 	cd $TMPDIR
 	
 	${XSLTPROC} $DOCBOOK/book.xml
 
 #	sed "s/{latest}/`date -u`/g" index.epub >index.epub.sed; mv index.epub.sed index.epub
+	test -d OEBPS/donations.xhtml && sed -i "s/\/images/images/g" OEBPS/donations.xhtml
 #	if [ ! -d ${PUBLIC_HTML}/${epub} ]; then
 #		mkdir ${PUBLIC_HTML}/${epub}
 #	fi
-	cp $WORKSPACE/common/docbook.css OEBPS
 	if [ -d $DOCBOOK/images ]; then
 		#cp -r $DOCBOOK/${xml}/images OEBPS
 		rsync -a --exclude=.svn $DOCBOOK/images OEBPS/
-		#rsync -a --exclude=.svn $WORKSPACE/Website/images/* images/
+		rsync -a --exclude=.svn $WORKSPACE/Website/images/book/* OEBPS/images/
 	fi
-	find OEBPS -type d -iname ".svn" -exec rm -rf {} \; 
+#	find OEBPS -type d -iname ".svn" -exec rm -rf {} \; 
 
 	echo "application/epub+zip" > mimetype
 	zip -0Xq  ${PROJECT}.epub mimetype
 	zip -Xr9D ${PROJECT}.epub *
 
 	cp *.epub ${EPUB}
-	#cp ${PROJECT}.epub ${EPUB}/ibook.epub
-
 	cd -
 	
 }
