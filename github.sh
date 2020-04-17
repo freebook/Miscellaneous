@@ -20,8 +20,8 @@ sitemap(){
 	gzip sitemaps.xml
 }
 
-./sitemaps http://www.netkiller.cn | gzip > ${PUBLIC_HTML}/sitemaps.xml.gz
-./sitemap.xml http://www.netkiller.cn  > ${PUBLIC_HTML}/sitemap.xml
+./sitemaps http://www.netkiller.cn > ${PUBLIC_HTML}/sitemap.xml
+cat ${PUBLIC_HTML}/sitemap.xml | gzip > ${PUBLIC_HTML}/sitemaps.xml.gz
 ./sitemap.txt > ${PUBLIC_HTML}/sitemap.txt
 
 cd ${PUBLIC_HTML}

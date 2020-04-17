@@ -6,25 +6,22 @@ export XSLTPROC="xsltproc --stringparam toc.section.depth 3 --stringparam sectio
 export PUBLIC_HTML="/home/neo/workspace/netkiller.github.io"
 
 WORKSPACE=/home/neo/workspace
-EPUB=$PUBLIC_HTML/download/2020/epub/
+EPUB=$PUBLIC_HTML/download/$(date '+%Y')/epub/
 
 
 generator(){
 	#echo $@
 	PROJECT="Netkiller-"$(echo $1|sed "s/\//-/")
         DOCBOOK=$WORKSPACE/$1
-	echo $PROJECT
-	echo $EPUB
 	mkdir -p ${EPUB}
 
 	TMPDIR=$(mktemp -d --suffix=.epub -p /tmp $2.XXXXXX)
-	echo $TMPDIR
 	cd $TMPDIR
 	
 	${XSLTPROC} $DOCBOOK/book.xml
 
 #	sed "s/{latest}/`date -u`/g" index.epub >index.epub.sed; mv index.epub.sed index.epub
-	test -d OEBPS/donations.xhtml && sed -i "s/\/images/images/g" OEBPS/donations.xhtml
+	test -f OEBPS/donations.xhtml && sed -i "s/\/images/images/g" OEBPS/donations.xhtml
 #	if [ ! -d ${PUBLIC_HTML}/${epub} ]; then
 #		mkdir ${PUBLIC_HTML}/${epub}
 #	fi
@@ -42,6 +39,10 @@ generator(){
 	cp *.epub ${EPUB}
 	cd -
 	
+	echo $TMPDIR
+	echo $PROJECT
+	echo $EPUB
+
 }
 
 
