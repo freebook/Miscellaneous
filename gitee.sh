@@ -1,0 +1,1 @@
+rsync -au --delete --exclude=.git --exclude=.svn ../netkiller.github.io/* ../book/
